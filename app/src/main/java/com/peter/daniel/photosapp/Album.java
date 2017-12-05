@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
 /**
  * The Class Album.
  *
@@ -34,18 +31,14 @@ public class Album implements Serializable
 	/** The date created. */
 	private LocalDate dateCreated;
 	
-	/** The owner. */
-	User owner;
-	
 	/**
 	 * Instantiates a new album.
 	 *
 	 * @param initName the init name
 	 * @param initOwner the init owner
 	 */
-	public Album(String initName, User initOwner) {
+	public Album(String initName) {
 		setName(initName);
-		owner = initOwner;
 		dateCreated = LocalDate.now();
 	}
 	

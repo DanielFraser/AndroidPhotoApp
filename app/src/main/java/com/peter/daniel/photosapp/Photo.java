@@ -7,10 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.util.Pair;
-
 /**
  * The Class Photo.
  *
@@ -90,11 +86,7 @@ public class Photo implements Serializable
 			tags.put(key, value);
 		else
 		{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error!");
-			alert.setContentText("Sorry, tag already exists");
 
-			alert.showAndWait();
 		}
 	}
 
