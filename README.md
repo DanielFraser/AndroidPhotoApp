@@ -1,5 +1,8 @@
 # cs213PhotoApp30
 
+min sdk 23
+build emulator for sdk 23
+
 #TODO
 - Home
 	1. load data (if exists)
