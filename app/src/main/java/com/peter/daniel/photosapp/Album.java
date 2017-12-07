@@ -35,7 +35,6 @@ public class Album implements Serializable
 	 * Instantiates a new album.
 	 *
 	 * @param initName the init name
-	 * @param initOwner the init owner
 	 */
 	public Album(String initName) {
 		setName(initName);
