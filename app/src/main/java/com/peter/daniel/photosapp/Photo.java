@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -25,7 +26,7 @@ public class Photo implements Serializable
 	private String location = "", caption;
 	
 	/** The date created. */
-	private LocalDateTime dateCreated;
+	private Date dateCreated;
 
 	/** The tags. */
 	private HashMap<String, String> tags = new HashMap<>();
@@ -40,7 +41,7 @@ public class Photo implements Serializable
 	 * @param date the date
 	 * @param userID the user ID
 	 */
-	public Photo(String initLocation, LocalDateTime date, int userID) 
+	public Photo(String initLocation, Date date, int userID)
 	{
 		id = userID;
 		location = initLocation;
@@ -114,11 +115,10 @@ public class Photo implements Serializable
 	 * Removes the tag.
 	 *
 	 * @param key the key
-	 * @param value the value
 	 */
-	public void removeTag(String key, String value) 
+	public void removeTag(String key)
 	{
-		tags.remove(key, value);
+		tags.remove(key);
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class Photo implements Serializable
 	 *
 	 * @return the created
 	 */
-	public LocalDateTime getDate()
+	public Date getDate()
 	{
 		return dateCreated;
 	}
@@ -174,8 +174,7 @@ public class Photo implements Serializable
 	 */
 	public String getDateS()
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dateCreated.format(formatter);
+        return dateCreated.toString();
 	}
 
 	/**
