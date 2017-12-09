@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
 import com.peter.daniel.photosapp.adapter.AlbumAdapter;
 

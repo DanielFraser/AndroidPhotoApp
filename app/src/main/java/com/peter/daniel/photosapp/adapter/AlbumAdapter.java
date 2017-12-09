@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,17 +24,20 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         SwipeLayout swipeLayout;
         TextView textViewPos;
         TextView textViewData;
-        Button buttonDelete;
-        Button buttonEdit;
+        ImageView buttonDelete;
+        ImageView buttonEdit;
+        ImageView buttonView;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             //textViewPos = (TextView) itemView.findViewById(R.id.position);
             textViewData = (TextView) itemView.findViewById(R.id.text_data);
-            buttonDelete = (Button) itemView.findViewById(R.id.delete);
-            //buttonEdit = (Button) itemView.findViewById(R.id.edit);
-
+            buttonDelete = (ImageView) itemView.findViewById(R.id.delete);
+            buttonEdit = (ImageView) itemView.findViewById(R.id.edit);
+            buttonView = (ImageView) itemView.findViewById(R.id.view);
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeLayout.findViewById(R.id.bottom_wrapper));
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeLayout.findViewById(R.id.bottom_wrapper_2));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,6 +68,7 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
         String item = mDataset.get(position);
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+
         viewHolder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
             public void onOpen(SwipeLayout layout) {
@@ -87,12 +92,18 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
                 Toast.makeText(view.getContext(), "Deleted " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
             }
         });
-      /*  viewHolder.buttonEdit.setOnClickListener(new View.OnClickListener() {
+        viewHolder.buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "edited " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
+        viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "viewed album: " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+            }
+        });
         //viewHolder.textViewPos.setText((position + 1) + ".");
         viewHolder.textViewData.setText(item);
         mItemManger.bind(viewHolder.itemView, position);
