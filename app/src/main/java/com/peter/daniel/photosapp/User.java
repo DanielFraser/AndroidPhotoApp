@@ -180,7 +180,7 @@ public class User implements Serializable
 	 *
 	 * @param name the name
 	 */
-	public void deleteAlbum(String name)
+	public static void deleteAlbum(String name)
 	{
 		Iterator itr = albums.iterator();
 		Album a;
@@ -215,7 +215,7 @@ public class User implements Serializable
 	 *
 	 * @param name the name
 	 */
-	public void addAlbum(String name)
+	public static void addAlbum(String name)
 	{
 		boolean canAdd = true;
 		for(Album a : albums)
@@ -234,7 +234,7 @@ public class User implements Serializable
 	 *
 	 * @param p the p
 	 */
-	public void addPhoto(Photo p)
+	public static void addPhoto(Photo p)
 	{
 		userPhotos.add(p);
 	}
@@ -245,7 +245,7 @@ public class User implements Serializable
 	 * @param location the location
 	 * @return the photo
 	 */
-	public int getPhoto(String location)
+	public static int getPhoto(String location)
 	{
 		for(Photo p : userPhotos)
 		{
@@ -261,7 +261,7 @@ public class User implements Serializable
 	 * @param s the s
 	 * @return the int
 	 */
-	public int addPhoto(String s, Date ld)
+	public static int addPhoto(String s, Date ld)
 	{
 		if(getPhoto(s) == -1)
 		{
@@ -279,7 +279,7 @@ public class User implements Serializable
 	 * @param photoInt the photo int
 	 * @return the photo
 	 */
-	public Photo getPhoto(Integer photoInt)
+	public static Photo getPhoto(Integer photoInt)
 	{
 		for(Photo p : userPhotos)
 		{
@@ -295,7 +295,7 @@ public class User implements Serializable
 	 * @param album the album
 	 * @return the photo
 	 */
-	public ArrayList<Photo> getPhoto(Album album)
+	public static ArrayList<Photo> getPhoto(Album album)
 	{
 		ArrayList<Photo> photos = new ArrayList<>();
 		for(int i : album.getPhotos())
@@ -309,7 +309,7 @@ public class User implements Serializable
 	 * @param album the album
 	 * @return the photo
 	 */
-	public ArrayList<Photo> getPhoto(ArrayList<Integer> album)
+	public static ArrayList<Photo> getPhoto(ArrayList<Integer> album)
 	{
 		ArrayList<Photo> photos = new ArrayList<>();
 		for(int i : album)
@@ -323,7 +323,7 @@ public class User implements Serializable
 	 * @param name the name
 	 * @return true, if successful
 	 */
-	public boolean sameName(String name)
+	public static boolean sameName(String name)
 	{
 		for(Album a : albums)
 		{
@@ -340,7 +340,7 @@ public class User implements Serializable
 	 * @param album the album
 	 * @return true, if successful
 	 */
-	public boolean setAlbumName(String name, String album)
+	public static boolean setAlbumName(String name, String album)
 	{
 		for(int i = 0; i < albums.size(); i++)
 		{
@@ -359,7 +359,7 @@ public class User implements Serializable
 	 * @param name the name
 	 * @return the album
 	 */
-	public Album getAlbum(String name)
+	public static Album getAlbum(String name)
 	{
 		for(Album a : albums)
 		{
@@ -376,7 +376,7 @@ public class User implements Serializable
 	 *
 	 * @return the num photos
 	 */
-	public int getNumPhotos() {
+	public static int getNumPhotos() {
 		return userPhotos.size();
 	}
 	
@@ -385,7 +385,7 @@ public class User implements Serializable
 	 *
 	 * @param a the a
 	 */
-	public void editAlbum(Album a)
+	public static void editAlbum(Album a)
 	{
 		for(int i = 0; i < albums.size(); i++)
 		{
@@ -401,7 +401,7 @@ public class User implements Serializable
 	 *
 	 * @return the album names
 	 */
-	public ArrayList<String> getAlbumNames()
+	public static ArrayList<String> getAlbumNames()
 	{
 		ArrayList<String> s = new ArrayList<>();
 		for(Album a : albums)
@@ -416,7 +416,7 @@ public class User implements Serializable
 	 * @param tag the tag
 	 * @return the array list
 	 */
-	public ArrayList<Photo> search(ArrayList<Pair<String, String>> tag)
+	public static ArrayList<Photo> search(ArrayList<Pair<String, String>> tag)
 	{
 		ArrayList<Photo> match = new ArrayList<>();
 		boolean hasAll = true;
@@ -432,21 +432,4 @@ public class User implements Serializable
 		}
 		return match;
 	}
-	
-	/**
-	 * Search albums.
-	 *
-	 * @param name the name
-	 * @return the array list
-	 *//*
-	public ArrayList<Album> searchAlbumsA(String name)
-	{
-		ArrayList<Album> match = new ArrayList<>();
-		for(Album a : albums)
-		{
-			if(a.getName().contains(name))
-				match.add(a);
-		}
-		return match;
-	}*/
 }
