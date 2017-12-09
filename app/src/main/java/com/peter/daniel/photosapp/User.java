@@ -1,10 +1,19 @@
 package com.peter.daniel.photosapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Pair;
+import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * The Class User.
@@ -23,13 +32,139 @@ public class User implements Serializable
 	private static final long serialVersionUID = 4353768237255205291L;
 
 	/** The albums. */
-	private ArrayList<Album> albums = new ArrayList<>();
+	private static ArrayList<Album> albums = new ArrayList<>();
 
 	/** The user photos. */
-	private ArrayList<Photo> userPhotos = new ArrayList<>();
+	private static ArrayList<Photo> userPhotos = new ArrayList<>();
 
 	/** The id. */
-	private int id = 0;
+	private static int id = 0;
+
+	/**
+	 * Save Albums and Photos.
+	 */
+	public static void saveAll()
+	{
+		savePhotos();
+		saveAlbums();
+	}
+
+	/**
+	 * Load Albums and Photos.
+	 */
+	public static void loadAll()
+	{
+		loadPhotos();
+		loadAlbums();
+	}
+
+	/**
+	 * Save Albums.
+	 */
+	public static void savePhotos()
+	{
+		try
+		{
+			//Saving of object in a file
+			ArrayList<Photo> temp = userPhotos;
+			FileOutputStream file = new FileOutputStream("photos.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+
+			// Method for serialization of object
+			out.writeObject(temp);
+
+			out.close();
+			file.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load usernames.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void loadPhotos()
+	{
+		try
+		{
+			// Reading the object from a file
+			FileInputStream file = new FileInputStream("photos.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+
+			// Method for deserialization of object
+			userPhotos = (ArrayList<Photo>) in.readObject();
+
+			in.close();
+			file.close();
+
+			//System.out.println("usernames has been deserialized");
+		}
+		catch(FileNotFoundException e)
+		{
+			//do nothing
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Save Albums.
+	 */
+	public static void saveAlbums()
+	{
+		try
+		{
+			//Saving of object in a file
+			ArrayList<Album> temp = albums;
+			FileOutputStream file = new FileOutputStream("albums.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+
+			// Method for serialization of object
+			out.writeObject(temp);
+
+			out.close();
+			file.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load usernames.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void loadAlbums()
+	{
+		try
+		{
+			// Reading the object from a file
+			FileInputStream file = new FileInputStream("albums.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+
+			// Method for deserialization of object
+			albums = (ArrayList<Album>) in.readObject();
+
+			in.close();
+			file.close();
+
+			//System.out.println("usernames has been deserialized");
+		}
+		catch(FileNotFoundException e)
+		{
+			//do nothing
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Gets the albums.
@@ -47,7 +182,32 @@ public class User implements Serializable
 	 */
 	public void deleteAlbum(String name)
 	{
-		//TODO fill it in
+		Iterator itr = albums.iterator();
+		Album a;
+		while(itr.hasNext())
+		{
+			a = (Album) itr.next();
+			if(a.getName().equalsIgnoreCase(name))
+			{
+				AlertDialog.Builder builder = null;
+				builder.setTitle("Delete entry")
+						.setMessage("Are you sure you want to delete this entry?")
+						.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								//itr.remove();
+							}
+						})
+						.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								// do nothing
+							}
+						})
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.show();
+
+			}
+
+		}
 	}
 
 	/**
@@ -57,7 +217,16 @@ public class User implements Serializable
 	 */
 	public void addAlbum(String name)
 	{
-		albums.add(new Album(name));
+		boolean canAdd = true;
+		for(Album a : albums)
+		{
+			if(a.getName().equalsIgnoreCase(name))
+				canAdd = false;
+		}
+		if(canAdd)
+			albums.add(new Album(name));
+		/*else
+			Toast.makeText(view.getContext(), "Album name already exists!", Toast.LENGTH_SHORT).show();*/
 	}
 	
 	/**
