@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.albumList);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setTitle("Photos");
+
         setSupportActionBar(myToolbar);
 
         // Layout Managers:
@@ -99,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_help:
-                displayPopupWindow();
+                Intent help_intent = new Intent(this, helpActivity.class);
+                this.startActivity(help_intent);
                 break;
 
             default:
