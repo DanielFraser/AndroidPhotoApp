@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.albumList);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-
+        User.setCon(getApplicationContext());
+        User.loadAll();
         setSupportActionBar(myToolbar);
 
         // Layout Managers:
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         //recyclerView.setItemAnimator(new FadeInLeftAnimator());
 
         // Adapter:
-        String[] adapterData = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
-        mDataSet = new ArrayList<String>(Arrays.asList(adapterData));
+        //String[] adapterData = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
+        mDataSet = User.getAlbumNames();
         mAdapter = new AlbumAdapter(this, mDataSet);
         ((AlbumAdapter) mAdapter).setMode(Attributes.Mode.Single);
         recyclerView.setAdapter(mAdapter);
@@ -151,5 +152,11 @@ public class MainActivity extends AppCompatActivity {
         popup.setOutsideTouchable(true);
         popup.setFocusable(true);
         popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        User.saveAll();
     }
 }

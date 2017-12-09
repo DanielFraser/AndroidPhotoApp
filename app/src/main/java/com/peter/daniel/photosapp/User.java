@@ -1,6 +1,7 @@
 package com.peter.daniel.photosapp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.util.Pair;
@@ -13,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -43,6 +45,13 @@ public class User implements Serializable
 	/** The id. */
 	private static int id = 0;
 
+	private static Context con;
+
+	public static void setCon(Context con2)
+	{
+		con = con2;
+	}
+
 	/**
 	 * Save Albums and Photos.
 	 */
@@ -70,7 +79,7 @@ public class User implements Serializable
 		{
 			//Saving of object in a file
 			ArrayList<Photo> temp = userPhotos;
-			FileOutputStream file = new FileOutputStream("photos.ser");
+			FileOutputStream file = con.openFileOutput("photos.ser", Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(file);
 
 			// Method for serialization of object
@@ -94,7 +103,7 @@ public class User implements Serializable
 		try
 		{
 			// Reading the object from a file
-			FileInputStream file = new FileInputStream("photos.ser");
+			FileInputStream file = con.openFileInput("photos.ser");
 			ObjectInputStream in = new ObjectInputStream(file);
 
 			// Method for deserialization of object
@@ -107,7 +116,7 @@ public class User implements Serializable
 		}
 		catch(FileNotFoundException e)
 		{
-			//do nothing
+			Toast.makeText(con, "No files?", Toast.LENGTH_SHORT).show();
 		}
 		catch(Exception e)
 		{
@@ -123,18 +132,18 @@ public class User implements Serializable
 		try
 		{
 			//Saving of object in a file
-			ArrayList<Album> temp = albums;
-			FileOutputStream file = new FileOutputStream("albums.ser");
+			FileOutputStream file = con.openFileOutput("albums.ser",Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(file);
 
 			// Method for serialization of object
-			out.writeObject(temp);
+			out.writeObject(albums);
 
 			out.close();
 			file.close();
 		}
 		catch(Exception e)
 		{
+			Log.d("error:", e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -148,7 +157,7 @@ public class User implements Serializable
 		try
 		{
 			// Reading the object from a file
-			FileInputStream file = new FileInputStream("albums.ser");
+			FileInputStream file = con.openFileInput("albums.ser");
 			ObjectInputStream in = new ObjectInputStream(file);
 
 			// Method for deserialization of object
@@ -192,22 +201,7 @@ public class User implements Serializable
 			a = (Album) itr.next();
 			if(a.getName().equalsIgnoreCase(name))
 			{
-				AlertDialog.Builder builder = null;
-				builder.setTitle("Delete entry")
-						.setMessage("Are you sure you want to delete this entry?")
-						.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								//itr.remove();
-							}
-						})
-						.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								// do nothing
-							}
-						})
-						.setIcon(android.R.drawable.ic_dialog_alert)
-						.show();
-
+				itr.remove();
 			}
 
 		}
