@@ -5,8 +5,7 @@ build emulator for sdk 23
 
 #TODO
 - Home
-	1. load data (if exists)
-	2. List albums (if any)
+	done?
 	
 - Search
 	1. search by person and/or location
@@ -19,4 +18,4 @@ build emulator for sdk 23
 		a. add/remove tags (only person & location allowed)
 		
 - on close
-	1. save data
+	done?

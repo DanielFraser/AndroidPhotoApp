@@ -24,9 +24,6 @@ public class Photo implements Serializable
 
 	/** The caption. */
 	private String location = "", caption;
-	
-	/** The date created. */
-	private Date dateCreated;
 
 	/** The tags. */
 	private HashMap<String, String> tags = new HashMap<>();
@@ -45,7 +42,6 @@ public class Photo implements Serializable
 	{
 		id = userID;
 		location = initLocation;
-		dateCreated = date;
 	}
 	
 	/**
@@ -155,26 +151,6 @@ public class Photo implements Serializable
 			  s += pair.getKey()+": "+pair.getValue() + "\n";
 		}
 		return s;
-	}
-
-	/**
-	 * Gets the date.
-	 *
-	 * @return the created
-	 */
-	public Date getDate()
-	{
-		return dateCreated;
-	}
-	
-	/**
-	 * Gets the date S.
-	 *
-	 * @return the date S
-	 */
-	public String getDateS()
-	{
-        return dateCreated.toString();
 	}
 
 	/**

@@ -28,9 +28,6 @@ public class Album implements Serializable
 	/** The name. */
 	private String name;
 	
-	/** The date created. */
-	private LocalDate dateCreated;
-	
 	/**
 	 * Instantiates a new album.
 	 *
@@ -118,15 +115,6 @@ public class Album implements Serializable
 	public int getSize()
 	{
 		return photos.size();
-	}
-	
-	/**
-	 * Gets the date created.
-	 *
-	 * @return the date created
-	 */
-	public LocalDate getDateCreated() {
-		return dateCreated;
 	}
 	
 	/**
