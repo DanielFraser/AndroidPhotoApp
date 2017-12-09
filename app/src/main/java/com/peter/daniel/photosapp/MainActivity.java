@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Item Decorator:
         recyclerView.addItemDecoration(new com.peter.daniel.photosapp.adapter.util.DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
-        recyclerView.setItemAnimator(new FadeInLeftAnimator());
+        //recyclerView.setItemAnimator(new FadeInLeftAnimator());
 
         // Adapter:
         String[] adapterData = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};

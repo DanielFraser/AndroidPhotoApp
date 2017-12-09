@@ -24,13 +24,15 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         TextView textViewPos;
         TextView textViewData;
         Button buttonDelete;
+        Button buttonEdit;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             //textViewPos = (TextView) itemView.findViewById(R.id.position);
-            //textViewData = (TextView) itemView.findViewById(R.id.text_data);
+            textViewData = (TextView) itemView.findViewById(R.id.text_data);
             buttonDelete = (Button) itemView.findViewById(R.id.delete);
+            //buttonEdit = (Button) itemView.findViewById(R.id.edit);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,9 +87,15 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
                 Toast.makeText(view.getContext(), "Deleted " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
             }
         });
-        viewHolder.textViewPos.setText((position + 1) + ".");
+      /*  viewHolder.buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "edited " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        //viewHolder.textViewPos.setText((position + 1) + ".");
         viewHolder.textViewData.setText(item);
-        //mItemManger.bind(viewHolder.itemView, position);
+        mItemManger.bind(viewHolder.itemView, position);
     }
 
     @Override

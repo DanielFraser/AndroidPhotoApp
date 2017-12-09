@@ -15,9 +15,10 @@
         android:background="?attr/colorPrimary"
         app:titleTextColor="@color/colorTextWhite"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <android.support.v7.widget.RecyclerView
+        android:paddingTop="?android:attr/actionBarSize"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/albumList"
         android:layout_width="match_parent"
