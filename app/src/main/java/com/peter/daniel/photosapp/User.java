@@ -2,6 +2,7 @@ package com.peter.daniel.photosapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
 
@@ -12,8 +13,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * The Class User.
@@ -215,7 +218,7 @@ public class User implements Serializable
 	 *
 	 * @param name the name
 	 */
-	public static void addAlbum(String name)
+	public static boolean addAlbum(String name)
 	{
 		boolean canAdd = true;
 		for(Album a : albums)
@@ -225,8 +228,9 @@ public class User implements Serializable
 		}
 		if(canAdd)
 			albums.add(new Album(name));
-		/*else
-			Toast.makeText(view.getContext(), "Album name already exists!", Toast.LENGTH_SHORT).show();*/
+		else
+			return false;
+		return true;
 	}
 	
 	/**
@@ -332,7 +336,16 @@ public class User implements Serializable
 		}
 		return false;
 	}
-	
+
+	public static void setAlbumsTemp(String[] s)
+	{
+		albums = new ArrayList<>();
+		for(String a : s)
+		{
+			albums.add(new Album(a));
+		}
+	}
+
 	/**
 	 * Sets the album name.
 	 *
@@ -344,11 +357,12 @@ public class User implements Serializable
 	{
 		for(int i = 0; i < albums.size(); i++)
 		{
-			if(!sameName(name) && albums.get(i).getName().equals(album))
+			if(!sameName(name) && albums.get(i).getName().equalsIgnoreCase(album))
 			{
 				albums.get(i).setName(name);
 				return true;
 			}
+			Log.e("album:",albums.get(i).getName());
 		}
 		return false;
 	}
@@ -406,6 +420,7 @@ public class User implements Serializable
 		ArrayList<String> s = new ArrayList<>();
 		for(Album a : albums)
 			s.add(a.getName());
+		Collections.sort(s, String.CASE_INSENSITIVE_ORDER);
 		return s;
 	}
 
@@ -432,4 +447,5 @@ public class User implements Serializable
 		}
 		return match;
 	}
+
 }

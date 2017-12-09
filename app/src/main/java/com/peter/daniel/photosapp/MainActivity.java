@@ -1,5 +1,7 @@
 package com.peter.daniel.photosapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,12 +9,15 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
@@ -89,8 +94,38 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent myIntent = new Intent(this, AddEditAlbum.class);
-                this.startActivity(myIntent);
+                //((AlbumAdapter) mAdapter).updateList(User.getAlbumNames());
+                AlertDialog.Builder builder = new AlertDialog.Builder(recyclerView.getContext());
+                builder.setTitle("Add Album");
+
+                // Set up the input
+                final EditText input = new EditText(recyclerView.getContext());
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean b = User.addAlbum(input.getText().toString());
+                        if(b)
+                            Toast.makeText(getApplicationContext(), "Sucessfully add album: " + input.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getApplicationContext(), "Album name: " + input.getText().toString() + " already exists!", Toast.LENGTH_SHORT).show();
+                        mAdapter = new AlbumAdapter(recyclerView.getContext(), User.getAlbumNames());
+                        ((AlbumAdapter) mAdapter).setMode(Attributes.Mode.Single);
+                        recyclerView.swapAdapter(mAdapter,true);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
                 break;
 
             case R.id.action_search:

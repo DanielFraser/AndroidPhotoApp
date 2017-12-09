@@ -101,7 +101,7 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         viewHolder.buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "edited " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "edited " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Title");
 
@@ -122,6 +122,8 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
                             Toast.makeText(v.getContext(), "Sucessfully changed name to: " + input.getText().toString() + "!", Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(v.getContext(), "Album name: " + input.getText().toString() + " already exists!", Toast.LENGTH_SHORT).show();
+                    mDataset = User.getAlbumNames();
+                        notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -155,5 +157,10 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
     @Override
     public int getSwipeLayoutResourceId(int position) {
         return R.id.swipe;
+    }
+
+    public void updateList(ArrayList<String> list)
+    {
+        mDataset = list;
     }
 }
