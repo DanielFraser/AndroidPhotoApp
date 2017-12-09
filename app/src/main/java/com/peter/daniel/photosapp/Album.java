@@ -38,7 +38,6 @@ public class Album implements Serializable
 	 */
 	public Album(String initName) {
 		setName(initName);
-		dateCreated = LocalDate.now();
 	}
 	
 	

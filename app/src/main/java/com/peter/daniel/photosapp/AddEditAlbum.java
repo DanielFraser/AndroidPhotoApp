@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Created by peterlaskai on 12/7/17.
@@ -16,6 +20,8 @@ import android.support.v7.widget.Toolbar;
 public class AddEditAlbum extends AppCompatActivity {
 
     private Toolbar myToolbar;
+    private Button add_Button;
+    private EditText album_input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,6 +41,27 @@ public class AddEditAlbum extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("Create an Album");
 
+        add_Button = (Button) findViewById(R.id.add_button);
+
+        album_input = (EditText) findViewById(R.id.album_name);
+
+        add_Button.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.v("EditText", album_input.getText().toString());
+                String album_name = album_input.getText().toString();
+                User.addAlbum(album_name);
+                album_input.setText("");
+                finish();
+
+
+            }
+        });
+
+
 
     }
+
+
 }
