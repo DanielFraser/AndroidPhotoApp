@@ -59,34 +59,6 @@ public class Album implements Serializable
 	}
 
 	/**
-	 * Sets the photos.
-	 *
-	 * @param photos the new photos
-	 */
-	public void setPhotos(ArrayList<Integer> photos) {
-		this.photos = photos;
-	}
-	
-	/**
-	 * Song's equal method.
-	 *
-	 * @param obj the obj
-	 * @return true, if successful
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if(obj == null || !(obj instanceof Album))
-			return false;
-		else
-		{
-			Album newAlbum = (Album) obj;
-			if(getName().equalsIgnoreCase(newAlbum.getName()))
-				return true;
-			return false;
-		}
-	}
-
-	/**
 	 * Gets the name.
 	 *
 	 * @return the name

@@ -24,13 +24,15 @@ public class SlideShow extends FragmentActivity {
     static final int NUM_ITEMS = 6;
     ImageFragmentPagerAdapter imageFragmentPagerAdapter;
     ViewPager viewPager;
-    String album = getIntent().getStringExtra("album");
-    ArrayList<Photo> photos = User.getPhotos(album);
+    String album;
+    ArrayList<Photo> photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slideshow);
+        album = getIntent().getStringExtra("album");
+        photos = User.getPhotos(album);
         imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(imageFragmentPagerAdapter);
@@ -43,7 +45,7 @@ public class SlideShow extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return NUM_ITEMS;
+            return User.temp.size();
         }
 
         @Override
@@ -75,7 +77,7 @@ public class SlideShow extends FragmentActivity {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Add/Edit location tag");
+                    builder.setTitle("Add/Edit person tag");
 
                     // Set up the input
                     final EditText input = new EditText(view.getContext());
@@ -90,7 +92,10 @@ public class SlideShow extends FragmentActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             User.temp.get(position).setPersonTag(input.getText().toString());
-                            Toast.makeText(v.getContext(), "Changed location tag to: " + input.getText().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), "Changed person tag to: " + input.getText().toString(), Toast.LENGTH_SHORT).show();
+                            person.setText(input.getText().toString());
+                            person.setVisibility(View.VISIBLE);
+                            swipeView.findViewById(R.id.uPerson).setVisibility(View.VISIBLE);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -124,6 +129,9 @@ public class SlideShow extends FragmentActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(v.getContext(), "Changed location tag to: " + input.getText().toString(), Toast.LENGTH_SHORT).show();
                             User.temp.get(position).setLocationTag(input.getText().toString());
+                            location.setText(input.getText().toString());
+                            location.setVisibility(View.VISIBLE);
+                            swipeView.findViewById(R.id.uLocation).setVisibility(View.VISIBLE);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -143,7 +151,7 @@ public class SlideShow extends FragmentActivity {
                     Toast.makeText(view.getContext(), "Deleted person tag!", Toast.LENGTH_SHORT).show();
                     User.temp.get(position).setPersonTag("");
                     person.setVisibility(View.INVISIBLE);
-                    swipeView.findViewById(R.id.locationBtn).setVisibility(View.INVISIBLE);
+                    swipeView.findViewById(R.id.uPerson).setVisibility(View.INVISIBLE);
                 }
             });
             //location delete tag
@@ -157,22 +165,18 @@ public class SlideShow extends FragmentActivity {
                 }
             });
             String imageFileName = User.temp.get(position).getLocation();
-            if(User.temp.get(position).getLocationTag().equals(""))
-            {
+            if (User.temp.get(position).getLocationTag().equals("")) {
                 location.setVisibility(View.INVISIBLE);
                 swipeView.findViewById(R.id.uLocation).setVisibility(View.INVISIBLE);
-            }
-            else
+            } else
                 location.setText(User.temp.get(position).getLocationTag());
-            if(User.temp.get(position).getLocationTag().equals(""))
-            {
+            if (User.temp.get(position).getPersonTag().equals("")) {
                 person.setVisibility(View.INVISIBLE);
-                swipeView.findViewById(R.id.locationBtn).setVisibility(View.INVISIBLE);
-            }
-            else
+                swipeView.findViewById(R.id.uPerson).setVisibility(View.INVISIBLE);
+            } else
                 person.setText(User.temp.get(position).getPersonTag());
 
-            int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.javapapers.android.swipeimageslider");
+            int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.peter.daniel.photosapp");
             imageView.setImageResource(imgResId);
             return swipeView;
         }

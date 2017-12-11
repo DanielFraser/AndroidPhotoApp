@@ -61,6 +61,7 @@ public class User implements Serializable
 	{
 		savePhotos();
 		saveAlbums();
+		saveID();
 	}
 
 	/**
@@ -70,6 +71,61 @@ public class User implements Serializable
 	{
 		loadPhotos();
 		loadAlbums();
+		loadID();
+	}
+
+	/**
+	 * Save Albums.
+	 */
+	public static void saveID()
+	{
+		try
+		{
+			//Saving of object in a file
+			int temp = id;
+			FileOutputStream file = con.openFileOutput("id.ser", Context.MODE_PRIVATE);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+
+			// Method for serialization of object
+			out.writeObject(temp);
+
+			out.close();
+			file.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load usernames.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void loadID()
+	{
+		try
+		{
+			// Reading the object from a file
+			FileInputStream file = con.openFileInput("id.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+
+			// Method for deserialization of object
+			id = (Integer) in.readObject();
+
+			in.close();
+			file.close();
+
+			//System.out.println("usernames has been deserialized");
+		}
+		catch(FileNotFoundException e)
+		{
+			Toast.makeText(con, "No files?", Toast.LENGTH_SHORT).show();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -181,15 +237,6 @@ public class User implements Serializable
 	}
 
 	/**
-	 * Gets the albums.
-	 *
-	 * @return the albums
-	 */
-	public ArrayList<Album> getAlbums() {
-		return albums;
-	}
-
-	/**
 	 * Delete album.
 	 *
 	 * @param name the name
@@ -223,20 +270,18 @@ public class User implements Serializable
 				canAdd = false;
 		}
 		if(canAdd)
+		{
 			albums.add(new Album(name));
+			int i = addPhoto("add");
+			getAlbum(name).addPhoto(i);
+			Log.d("debug1", String.valueOf(i));
+			i = addPhoto("edit");
+			getAlbum(name).addPhoto(i);
+			Log.d("debug2", String.valueOf(i));
+		}
 		else
 			return false;
 		return true;
-	}
-	
-	/**
-	 * Adds the photo.
-	 *
-	 * @param p the p
-	 */
-	public static void addPhoto(Photo p)
-	{
-		userPhotos.add(p);
 	}
 	
 	/**
@@ -249,9 +294,11 @@ public class User implements Serializable
 	{
 		for(Photo p : userPhotos)
 		{
-			if(p.getLocation().equals(location))
+			Log.d("User", "getPhoto: " + p.getLocation() + " " + location + " " + p.getLocation().equalsIgnoreCase(location));
+			if(p.getLocation().equalsIgnoreCase(location))
 				return p.getId();
 		}
+		Log.d("User", "getPhoto: " + -1);
 		return -1;
 	}
 	
@@ -267,9 +314,11 @@ public class User implements Serializable
 		{
 			Photo p = new Photo(s, id);
 			id++;
+			Log.d("debug3", String.valueOf(id));
 			userPhotos.add(p);
 			return p.getId();
 		}
+		Log.d("debugw", String.valueOf(getPhoto(s)));
 		return getPhoto(s);
 	}
 	
@@ -281,10 +330,10 @@ public class User implements Serializable
 	 */
 	public static Photo getPhoto(Integer photoInt)
 	{
-		for(Photo p : userPhotos)
+		for(int i = 0; i < userPhotos.size(); i++)
 		{
-			if(p.getId() == photoInt)
-				return p;
+			if(userPhotos.get(i).getId() == photoInt)
+				return userPhotos.get(i);
 		}
 		return null;
 	}
@@ -292,7 +341,7 @@ public class User implements Serializable
 	/**
 	 * Gets the photo.
 	 *
-	 * @param album the album
+	 * @param name the album name
 	 * @return the photo
 	 */
 	public static ArrayList<Photo> getPhotos(String name)
@@ -302,20 +351,6 @@ public class User implements Serializable
 		for(int i : album.getPhotos())
 			photos.add(getPhoto(i));
 		temp = photos;
-		return photos;
-	}
-	
-	/**
-	 * Gets the photo.
-	 *
-	 * @param album the album
-	 * @return the photo
-	 */
-	public static ArrayList<Photo> getPhoto(ArrayList<Integer> album)
-	{
-		ArrayList<Photo> photos = new ArrayList<>();
-		for(int i : album)
-			photos.add(getPhoto(i));
 		return photos;
 	}
 	
@@ -333,15 +368,6 @@ public class User implements Serializable
 				return true;
 		}
 		return false;
-	}
-
-	public static void setAlbumsTemp(String[] s)
-	{
-		albums = new ArrayList<>();
-		for(String a : s)
-		{
-			albums.add(new Album(a));
-		}
 	}
 
 	/**
@@ -382,31 +408,6 @@ public class User implements Serializable
 		}
 		return null;
 	}
-
-	/**
-	 * Gets the num photos.
-	 *
-	 * @return the num photos
-	 */
-	public static int getNumPhotos() {
-		return userPhotos.size();
-	}
-	
-	/**
-	 * Edits the album.
-	 *
-	 * @param a the a
-	 */
-	public static void editAlbum(Album a)
-	{
-		for(int i = 0; i < albums.size(); i++)
-		{
-			if(a.getName().equals(albums.get(i).getName()))
-			{
-				albums.set(i, a);
-			}
-		}
-	}
 	
 	/**
 	 * Gets the album names.
@@ -426,20 +427,23 @@ public class User implements Serializable
 	/**
 	 * Search.
 	 *
-	 * @param tag the tag
+	 * @param location the location
+	 * @param person the person
 	 * @return the array list
 	 */
-	public static ArrayList<Photo> search(ArrayList<Pair<String, String>> tag)
+	public static ArrayList<Photo> search(String location, String person)
 	{
 		ArrayList<Photo> match = new ArrayList<>();
 		boolean hasAll = true;
 		for(Photo p : userPhotos)
 		{
 			hasAll = true;
-			for(Pair<String, String> t : tag)
-			{
-				hasAll = hasAll && t.equals(tag);
-			}
+			if(!location.equals(""))
+				if(!p.getLocationTag().contains(location))
+					hasAll = false;
+			if(!person.equals(""))
+				if(!p.getPersonTag().contains(person))
+					hasAll = false;
 			if(hasAll)
 				match.add(p);
 		}

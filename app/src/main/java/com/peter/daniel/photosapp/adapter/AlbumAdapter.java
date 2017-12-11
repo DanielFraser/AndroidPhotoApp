@@ -3,6 +3,7 @@ package com.peter.daniel.photosapp.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
@@ -19,7 +20,10 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.peter.daniel.photosapp.R;
+import com.peter.daniel.photosapp.SlideShow;
 import com.peter.daniel.photosapp.User;
+import com.peter.daniel.photosapp.ViewAlbum;
+import com.peter.daniel.photosapp.searchActivity;
 
 import java.util.ArrayList;
 
@@ -140,8 +144,10 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "viewed album: " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
-
+                Intent viewAlbum = new Intent(mContext, SlideShow.class);
+                viewAlbum.putExtra("album",viewHolder.textViewData.getText().toString());
+                Log.d("debug", viewHolder.textViewData.getText().toString());
+                mContext.startActivity(viewAlbum);
             }
         });
         //viewHolder.textViewPos.setText((position + 1) + ".");
