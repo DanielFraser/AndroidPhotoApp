@@ -10,6 +10,7 @@
         android:background="#333"
         android:layout_width="wrap_content"
         android:gravity="center"
+        android:id="@+id/bottom_wrapper2"
         android:layout_height="120dp">
         <ImageView
             android:id="@+id/trash"
@@ -20,14 +21,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:tag="Bottom1"
+        android:background="#66ddff00"
+        android:id="@+id/bottom_wrapper1"
+        android:layout_width="wrap_content"
+        android:weightSum="1"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/view"
+            android:src="@drawable/view"
+            android:layout_width="70dp"
+            android:background="@drawable/amber"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:layout_height="80dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:padding="10dp"
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="140dp">
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"

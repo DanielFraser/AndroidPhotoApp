@@ -18,12 +18,16 @@ import com.peter.daniel.photosapp.adapter.PhotoAdapter;
 
 public class ViewAlbum extends AppCompatActivity {
 
+    private String album;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewalbum);
+        //getActionBar().setTitle(getIntent().getStringExtra("album"));
+        album = getIntent().getStringExtra("album");
         final GridView gridView = (GridView)findViewById(R.id.gridview);
-        final PhotoAdapter adapter = new PhotoAdapter(this, null);
+        final PhotoAdapter adapter = new PhotoAdapter(this, User.getPhotos(album));
         adapter.setMode(Attributes.Mode.Multiple);
         gridView.setAdapter(adapter);
         gridView.setSelected(false);
@@ -31,7 +35,6 @@ public class ViewAlbum extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("onItemLongClick","onItemLongClick:" + position);
-
                 return false;
             }
         });
