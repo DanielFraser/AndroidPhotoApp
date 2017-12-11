@@ -123,7 +123,7 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
                         else
                             Toast.makeText(v.getContext(), "Album name: " + input.getText().toString() + " already exists!", Toast.LENGTH_SHORT).show();
                     mDataset = User.getAlbumNames();
-                        notifyDataSetChanged();
+                    notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
