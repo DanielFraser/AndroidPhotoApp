@@ -8,26 +8,52 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+
+import com.daimajia.swipe.util.Attributes;
+import com.peter.daniel.photosapp.adapter.PhotoAdapter;
 
 public class ViewAlbum extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_album);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        setContentView(R.layout.viewalbum);
+        final GridView gridView = (GridView)findViewById(R.id.gridview);
+        final PhotoAdapter adapter = new PhotoAdapter(this, null);
+        adapter.setMode(Attributes.Mode.Multiple);
+        gridView.setAdapter(adapter);
+        gridView.setSelected(false);
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("onItemLongClick","onItemLongClick:" + position);
 
-        ActionBar ab = getSupportActionBar();
+                return false;
+            }
+        });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("onItemClick","onItemClick:" + position);
+            }
+        });
 
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(getResources().getColor(R.color.colorTextWhite), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        ab.setDisplayHomeAsUpEnabled(true);
+        gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("onItemSelected","onItemSelected:" + position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
-
 }
