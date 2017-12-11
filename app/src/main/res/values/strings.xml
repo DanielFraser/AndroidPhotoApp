@@ -5,4 +5,5 @@
     <string name="search_hint">Search Photos</string>
     <string name="help_header">About</string>
     <string name="help_desc">Desc goes here</string>
+    <string name="tag">No value found</string>
 </resources>

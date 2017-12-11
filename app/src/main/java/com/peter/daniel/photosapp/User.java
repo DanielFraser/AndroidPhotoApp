@@ -42,6 +42,8 @@ public class User implements Serializable
 	/** The user photos. */
 	private static ArrayList<Photo> userPhotos = new ArrayList<>();
 
+	public static ArrayList<Photo> temp;
+
 	/** The id. */
 	private static int id = 0;
 
@@ -259,11 +261,11 @@ public class User implements Serializable
 	 * @param s the s
 	 * @return the int
 	 */
-	public static int addPhoto(String s, Date ld)
+	public static int addPhoto(String s)
 	{
 		if(getPhoto(s) == -1)
 		{
-			Photo p = new Photo(s, ld, id);
+			Photo p = new Photo(s, id);
 			id++;
 			userPhotos.add(p);
 			return p.getId();
@@ -293,11 +295,13 @@ public class User implements Serializable
 	 * @param album the album
 	 * @return the photo
 	 */
-	public static ArrayList<Photo> getPhoto(Album album)
+	public static ArrayList<Photo> getPhotos(String name)
 	{
+		Album album = getAlbum(name);
 		ArrayList<Photo> photos = new ArrayList<>();
 		for(int i : album.getPhotos())
 			photos.add(getPhoto(i));
+		temp = photos;
 		return photos;
 	}
 	

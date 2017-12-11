@@ -26,8 +26,9 @@ public class Photo implements Serializable
 	private String location = "", caption;
 
 	/** The tags. */
-	private HashMap<String, String> tags = new HashMap<>();
-	
+	private String personTag = "";
+	private String locationTag = "";
+
 	/** The id. */
 	private int id;
 	
@@ -35,56 +36,12 @@ public class Photo implements Serializable
 	 * Instantiates a new photo.
 	 *
 	 * @param initLocation the init location
-	 * @param date the date
 	 * @param userID the user ID
 	 */
-	public Photo(String initLocation, Date date, int userID)
+	public Photo(String initLocation, int userID)
 	{
 		id = userID;
 		location = initLocation;
-	}
-	
-	/**
-	 * Checks for tag.
-	 *
-	 * @param key the key
-	 * @return true, if successful
-	 */
-	public boolean hasTag(String key)
-	{
-		return tags.containsKey(key);
-	}
-	
-	/**
-	 * Checks for tag.
-	 *
-	 * @param key the key
-	 * @param value the value
-	 * @return true, if successful
-	 */
-	public boolean hasTag(String key, String value)
-	{
-		if(key.equals("*"))
-			return tags.containsValue(value);
-		if(hasTag(key))
-			return tags.get(key).equalsIgnoreCase(value);
-		return false;
-	}
-	
-	/**
-	 * Adds the tag.
-	 *
-	 * @param key the key
-	 * @param value the value
-	 */
-	public void addTag(String key, String value) 
-	{
-		if(!tags.containsKey(key))
-			tags.put(key, value);
-		else
-		{
-
-		}
 	}
 
 	/**
@@ -105,16 +62,6 @@ public class Photo implements Serializable
 	public String getCaption()
 	{
 		return caption;
-	}
-
-	/**
-	 * Removes the tag.
-	 *
-	 * @param key the key
-	 */
-	public void removeTag(String key)
-	{
-		tags.remove(key);
 	}
 
 	/**
@@ -139,47 +86,12 @@ public class Photo implements Serializable
 	}
 
 	/**
-	 * Prints the tags.
-	 *
-	 * @return the string
-	 */
-	public String printTags()
-	{
-		String s = "";
-		for (Entry<String,String> pair : tags.entrySet())
-		{
-			  s += pair.getKey()+": "+pair.getValue() + "\n";
-		}
-		return s;
-	}
-
-	/**
 	 * Gets the id.
 	 *
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
-	}
-	
-	/**
-	 * Sets the tags.
-	 *
-	 * @param hm the hm
-	 */
-	public void setTags(HashMap<String, String> hm)
-	{
-		tags = hm;
-	}
-	
-	/**
-	 * Gets the tags.
-	 *
-	 * @return the tags
-	 */
-	public HashMap<String, String> getTags()
-	{
-		return tags;
 	}
 	
 	/* (non-Javadoc)
@@ -196,5 +108,21 @@ public class Photo implements Serializable
 			Photo p = (Photo) obj;
 			return p.getLocation().equals(this.location);
 		}
+	}
+
+	public String getLocationTag() {
+		return locationTag;
+	}
+
+	public void setLocationTag(String locationTag) {
+		this.locationTag = locationTag;
+	}
+
+	public String getPersonTag() {
+		return personTag;
+	}
+
+	public void setPersonTag(String personTag) {
+		this.personTag = personTag;
 	}
 }
