@@ -36,6 +36,7 @@ public class SlideShow extends FragmentActivity {
         imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(imageFragmentPagerAdapter);
+        //viewPager.setCurrentItem(0); use later
     }
 
     public static class ImageFragmentPagerAdapter extends FragmentPagerAdapter {
