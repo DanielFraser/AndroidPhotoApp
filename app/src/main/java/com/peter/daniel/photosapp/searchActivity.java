@@ -50,10 +50,10 @@ public class searchActivity extends AppCompatActivity {
                String person_value = personInput.getText().toString();
                String location_value = locationInput.getText().toString();
 
-               ArrayList<Photo> result = User.search(person_value,location_value);
+               User.temp = User.search(person_value,location_value);
 
                Intent myIntent = new Intent(searchActivity.this, searchResultActivity.class);
-               myIntent.putExtra("photo_results", result);
+//               myIntent.putExtra("photo_results", temp);
                searchActivity.this.startActivity(myIntent);
             }
         });

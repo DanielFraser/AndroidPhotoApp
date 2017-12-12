@@ -14,6 +14,7 @@ import android.widget.GridView;
 
 import com.daimajia.swipe.util.Attributes;
 import com.peter.daniel.photosapp.adapter.PhotoAdapter;
+import com.peter.daniel.photosapp.adapter.SearchAdapter;
 
 import java.util.ArrayList;
 
@@ -24,15 +25,16 @@ import java.util.ArrayList;
 public class searchResultActivity extends AppCompatActivity {
 
     private GridView gridView;
-    private PhotoAdapter adapter;
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        ArrayList<Photo> result = (ArrayList<Photo>) getIntent().getSerializableExtra("photo_results");
+        ArrayList<Photo> result = User.temp;
 
+        //Toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -45,11 +47,10 @@ public class searchResultActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         gridView = (GridView)findViewById(R.id.search_grid);
-        adapter = new PhotoAdapter(this, result, "result");
+        adapter = new SearchAdapter(this, result);
         adapter.setMode(Attributes.Mode.Multiple);
         gridView.setAdapter(adapter);
         gridView.setSelected(false);
-        
 
 
     }
