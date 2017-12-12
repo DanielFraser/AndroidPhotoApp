@@ -98,4 +98,9 @@ public class Album implements Serializable
 	{
 		photos.add(i);
 	}
+
+	public void removePhoto(int i)
+	{
+		photos.remove(i);
+	}
 }

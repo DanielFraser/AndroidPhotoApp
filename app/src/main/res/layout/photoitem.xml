@@ -8,12 +8,19 @@
     <LinearLayout
         android:tag="Bottom2"
         android:background="#333"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:gravity="center"
         android:id="@+id/bottom_wrapper2"
         android:layout_height="120dp">
         <ImageView
-            android:id="@+id/trash"
+            android:id="@+id/move"
+            android:src="@drawable/move"
+            android:background="@drawable/blue"
+            android:layout_width="80dp"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/trash2"
             android:src="@drawable/trash"
             android:layout_width="80dp"
             android:layout_height="match_parent" />

@@ -52,7 +52,9 @@
         android:layout_marginBottom="112dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:singleLine="true"
         android:text="Location"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/SearchButton"
         app:layout_constraintStart_toStartOf="@+id/PersonInput"
         app:layout_constraintTop_toBottomOf="@+id/PersonInput" />

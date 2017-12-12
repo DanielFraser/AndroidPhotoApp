@@ -14,6 +14,7 @@
     <color name="amber">#ffc107</color>
     <color name="amber_press">#664d03</color>
     <color name="green">#4caf50</color>
-    <color name="green_press">#648c35</color>
-
+    <color name="green_press">#004000</color>
+    <color name="blue">#00bfff</color>
+    <color name="blue_press">#004c66</color>
 </resources>
