@@ -35,7 +35,7 @@
             android:background="@drawable/amber"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"/>
 
     </LinearLayout>
 

@@ -270,15 +270,7 @@ public class User implements Serializable
 				canAdd = false;
 		}
 		if(canAdd)
-		{
 			albums.add(new Album(name));
-			int i = addPhoto("add");
-			getAlbum(name).addPhoto(i);
-			Log.d("debug1", String.valueOf(i));
-			i = addPhoto("edit");
-			getAlbum(name).addPhoto(i);
-			Log.d("debug2", String.valueOf(i));
-		}
 		else
 			return false;
 		return true;

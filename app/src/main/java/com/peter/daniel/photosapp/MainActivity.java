@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_search:
                 Intent search_intent = new Intent(this, searchActivity.class);
-                //search_intent.putExtra("album","a");
                 this.startActivity(search_intent);
                 break;
 

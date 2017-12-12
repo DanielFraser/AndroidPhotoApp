@@ -2,6 +2,9 @@ package com.peter.daniel.photosapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class SlideShow extends FragmentActivity {
@@ -32,11 +42,13 @@ public class SlideShow extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slideshow);
         album = getIntent().getStringExtra("album");
+        int pos = getIntent().getIntExtra("pos", 0);
+        Log.d("int", "pos: " + pos);
         photos = User.getPhotos(album);
         imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(imageFragmentPagerAdapter);
-        //viewPager.setCurrentItem(0); use later
+        viewPager.setCurrentItem(pos);
     }
 
     public static class ImageFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -166,6 +178,21 @@ public class SlideShow extends FragmentActivity {
                 }
             });
             String imageFileName = User.temp.get(position).getLocation();
+            File imgFile = new File(imageFileName);
+            if(imgFile.exists())
+            {
+                InputStream imageStream = null;
+                try {
+                    imageStream = swipeView.getContext().getContentResolver().openInputStream(Uri.fromFile(imgFile));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                int nh = (int) ( selectedImage.getHeight() * (512.0 / selectedImage.getWidth()) );
+                Bitmap scaled = Bitmap.createScaledBitmap(selectedImage, 512, nh, true);
+                imageView.setImageBitmap(scaled);
+            }
+
             if (User.temp.get(position).getLocationTag().equals("")) {
                 location.setVisibility(View.INVISIBLE);
                 swipeView.findViewById(R.id.uLocation).setVisibility(View.INVISIBLE);
@@ -177,8 +204,8 @@ public class SlideShow extends FragmentActivity {
             } else
                 person.setText(User.temp.get(position).getPersonTag());
 
-            int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.peter.daniel.photosapp");
-            imageView.setImageResource(imgResId);
+            //int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.peter.daniel.photosapp");
+
             return swipeView;
         }
 
@@ -189,5 +216,11 @@ public class SlideShow extends FragmentActivity {
             swipeFragment.setArguments(bundle);
             return swipeFragment;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        User.saveAll();
     }
 }

@@ -2,6 +2,10 @@ package com.peter.daniel.photosapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +18,25 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.peter.daniel.photosapp.Photo;
 import com.peter.daniel.photosapp.R;
+import com.peter.daniel.photosapp.SlideShow;
+import com.peter.daniel.photosapp.User;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class PhotoAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
     private ArrayList<Photo> photos;
+    private String name;
+    private int pos = 2;
 
-    public PhotoAdapter(Context mContext, ArrayList<Photo> photos) {
+    public PhotoAdapter(Context mContext, ArrayList<Photo> photos, String name) {
         this.mContext = mContext;
         this.photos = photos;
+        this.name = name;
     }
 
     @Override
@@ -48,24 +60,39 @@ public class PhotoAdapter extends BaseSwipeAdapter {
     @Override
     public void fillValues(int position, View convertView) {
         // set value into textview
+        Log.d("poss2", "onClick2: " + position);
         ImageView iv = convertView.findViewById(R.id.imageView);
-        int imgResId = mContext.getResources().getIdentifier(photos.get(position).getLocation(),
-                "drawable", "com.peter.daniel.photosapp");
-        iv.setImageResource(imgResId);
+        String imageFileName = User.temp.get(position).getLocation();
+        File imgFile = new File(imageFileName);
+        if(imgFile.exists())
+        {
+            InputStream imageStream = null;
+            try {
+                imageStream = mContext.getContentResolver().openInputStream(Uri.fromFile(imgFile));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+            int nh = (int) ( selectedImage.getHeight() * (512.0 / selectedImage.getWidth()) );
+            Bitmap scaled = Bitmap.createScaledBitmap(selectedImage, 512, nh, true);
+            iv.setImageBitmap(scaled);
+        }
+
+
         //Log.d("test", photos.get(position).getLocation());
         SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeLayout.findViewById(R.id.bottom_wrapper1));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeLayout.findViewById(R.id.bottom_wrapper2));
-        /*TextView t = (TextView)convertView.findViewById(R.id.position);
-        t.setText((position + 1 )+".");*/
-        //ImageView iv = convertView.findViewById(R.id.view);
-        iv.setOnClickListener(new View.OnClickListener() {
+
+        ImageView iv2 = convertView.findViewById(R.id.view);
+        iv2.setTag(Integer.valueOf(position));
+        iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent viewAlbum = new Intent(mContext, SlideShow.class);
-                viewAlbum.putExtra("album",view.iv.getText().toString());
-                //Log.d("debug", viewHolder.textViewData.getText().toString());
-                mContext.startActivity(viewAlbum);*/
+                Intent viewAlbum = new Intent(mContext, SlideShow.class);
+                viewAlbum.putExtra("album",name);
+                viewAlbum.putExtra("pos",(Integer)(view.findViewById(R.id.view)).getTag());
+                mContext.startActivity(viewAlbum);
             }
         });
     }
@@ -83,5 +110,11 @@ public class PhotoAdapter extends BaseSwipeAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public void modifyList(ArrayList<Photo> photos)
+    {
+        this.photos = photos;
+        notifyDatasetChanged();
     }
 }

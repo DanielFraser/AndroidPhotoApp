@@ -51,7 +51,7 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
                 @Override
                 public void onClick(View view) {
                     Log.d(getClass().getSimpleName(), "onItemSelected: " + textViewData.getText().toString());
-                    Toast.makeText(view.getContext(), "onItemSelected: " + textViewData.getText().toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(view.getContext(), "onItemSelected: " + textViewData.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -144,7 +144,7 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewAlbum = new Intent(mContext, SlideShow.class);
+                Intent viewAlbum = new Intent(mContext, ViewAlbum.class);
                 viewAlbum.putExtra("album",viewHolder.textViewData.getText().toString());
                 Log.d("debug", viewHolder.textViewData.getText().toString());
                 mContext.startActivity(viewAlbum);
