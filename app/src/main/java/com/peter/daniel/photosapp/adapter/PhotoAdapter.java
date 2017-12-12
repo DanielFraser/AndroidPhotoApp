@@ -31,6 +31,7 @@ import com.peter.daniel.photosapp.R;
 import com.peter.daniel.photosapp.SlideShow;
 import com.peter.daniel.photosapp.User;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -48,6 +49,7 @@ public class PhotoAdapter extends BaseSwipeAdapter {
     public PhotoAdapter(Context mContext, ArrayList<Photo> photos, String name) {
         this.mContext = mContext;
         this.photos = photos;
+        User.temp = photos;
         this.name = name;
     }
 
@@ -85,10 +87,14 @@ public class PhotoAdapter extends BaseSwipeAdapter {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
             final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
             int nh = (int) ( selectedImage.getHeight() * (512.0 / selectedImage.getWidth()) );
             Bitmap scaled = Bitmap.createScaledBitmap(selectedImage, 512, nh, true);
-            iv.setImageBitmap(scaled);
+            scaled.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+            byte[] byteArray = stream.toByteArray();
+            Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+            iv.setImageBitmap(compressedBitmap);
         }
 
         //Log.d("test", photos.get(position).getLocation());

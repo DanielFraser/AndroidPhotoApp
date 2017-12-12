@@ -41,10 +41,10 @@ public class SlideShow extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slideshow);
-        album = getIntent().getStringExtra("album");
+        //album = getIntent().getStringExtra("album");
         int pos = getIntent().getIntExtra("pos", 0);
         Log.d("int", "pos: " + pos);
-        photos = User.getPhotos(album);
+        photos = User.temp;
         imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(imageFragmentPagerAdapter);
