@@ -7,23 +7,38 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:titleTextColor="@color/colorTextWhite"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:titleTextColor="@color/colorTextWhite" />
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/search_grid"
-        android:padding="10dp"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:listSelector="@drawable/item_selector"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+        <GridView
+            android:id="@+id/search_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="572dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="51dp"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@drawable/item_selector"
+            android:numColumns="2"
+            android:padding="10dp"
+            android:verticalSpacing="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.982" />
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>
