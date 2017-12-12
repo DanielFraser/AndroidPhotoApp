@@ -1,5 +1,6 @@
 package com.peter.daniel.photosapp;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,8 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.ArrayList;
 
 public class searchActivity extends AppCompatActivity {
+
+    private EditText personInput;
+    private EditText locationInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,26 @@ public class searchActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         ab.setDisplayHomeAsUpEnabled(true);
+
+        personInput = (EditText) findViewById(R.id.PersonInput);
+        locationInput = (EditText) findViewById(R.id.LocationInput);
+
+        Button searchButton = (Button) findViewById(R.id.SearchButton);
+        searchButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+               String person_value = personInput.getText().toString();
+               String location_value = locationInput.getText().toString();
+
+               ArrayList<Photo> result = User.search(person_value,location_value);
+
+               Intent myIntent = new Intent(searchActivity.this, searchResultActivity.class);
+               myIntent.putExtra("photo_results", result);
+               searchActivity.this.startActivity(myIntent);
+            }
+        });
 
     }
 }
