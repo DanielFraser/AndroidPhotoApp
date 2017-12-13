@@ -7,9 +7,18 @@
     android:layout_height="match_parent"
     tools:context="com.peter.daniel.photosapp.ViewAlbum">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/colorTextWhite"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingTop="?android:attr/actionBarSize"
         android:id="@+id/gridview"
-        android:padding="10dp"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
@@ -26,6 +35,5 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/add"
         android:onClick="addPhoto"/>
-
 
 </RelativeLayout>

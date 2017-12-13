@@ -2,10 +2,12 @@ package com.peter.daniel.photosapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,7 +34,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class SlideShow extends FragmentActivity {
-    static final int NUM_ITEMS = 6;
     ImageFragmentPagerAdapter imageFragmentPagerAdapter;
     ViewPager viewPager;
     String album;
@@ -41,7 +43,6 @@ public class SlideShow extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slideshow);
-        //album = getIntent().getStringExtra("album");
         int pos = getIntent().getIntExtra("pos", 0);
         Log.d("int", "pos: " + pos);
         photos = User.temp;
@@ -49,6 +50,17 @@ public class SlideShow extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(imageFragmentPagerAdapter);
         viewPager.setCurrentItem(pos);
+        final FloatingActionButton back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent parentActivityIntent = User.parents.pop();
+                User.parents.clear();
+                parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(parentActivityIntent);
+                finish();
+            }
+        });
     }
 
     public static class ImageFragmentPagerAdapter extends FragmentPagerAdapter {

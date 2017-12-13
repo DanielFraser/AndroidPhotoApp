@@ -1,10 +1,8 @@
 package com.peter.daniel.photosapp;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
-import android.util.Pair;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -14,11 +12,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Stack;
 
 /**
  * The Class User.
@@ -48,6 +44,8 @@ public class User implements Serializable
 	private static int id = 0;
 
 	private static Context con;
+
+	public static Stack<Intent> parents = new Stack<android.content.Intent>();
 
 	public static void setCon(Context con2)
 	{

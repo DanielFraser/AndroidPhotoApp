@@ -45,8 +45,19 @@ public class ViewAlbum extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewalbum);
-        //getActionBar().setTitle(getIntent().getStringExtra("album"));
+        User.parents.push(getIntent());
+        Toolbar myToolbar = findViewById(R.id.my_toolbar2);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorTextWhite), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+        ab.setDisplayHomeAsUpEnabled(true);
         album = getIntent().getStringExtra("album");
+        setTitle("Viewing "+album);
         gridView = (GridView)findViewById(R.id.gridview);
         adapter = new PhotoAdapter(this, User.getPhotos(album), album);
         adapter.setMode(Attributes.Mode.Multiple);

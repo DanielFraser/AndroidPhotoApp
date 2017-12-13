@@ -95,7 +95,6 @@ public class SearchAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View view) {
                 Intent viewAlbum = new Intent(mContext, SlideShow.class);
-//                viewAlbum.putExtra("album",name);
                 viewAlbum.putExtra("pos",(Integer)(view.findViewById(R.id.view)).getTag());
                 mContext.startActivity(viewAlbum);
             }

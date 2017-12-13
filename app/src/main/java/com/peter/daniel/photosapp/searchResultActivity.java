@@ -1,19 +1,14 @@
 package com.peter.daniel.photosapp;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 
 import com.daimajia.swipe.util.Attributes;
-import com.peter.daniel.photosapp.adapter.PhotoAdapter;
 import com.peter.daniel.photosapp.adapter.SearchAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +26,7 @@ public class searchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-
+        User.parents.push(getIntent());
         ArrayList<Photo> result = User.temp;
 
         //Toolbar
