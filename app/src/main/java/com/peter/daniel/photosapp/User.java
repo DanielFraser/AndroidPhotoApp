@@ -369,6 +369,8 @@ public class User implements Serializable
 	 */
 	public static boolean setAlbumName(String name, String album)
 	{
+		if(name.equalsIgnoreCase(album))
+			return true;
 		for(int i = 0; i < albums.size(); i++)
 		{
 			if(!sameName(name) && albums.get(i).getName().equalsIgnoreCase(album))

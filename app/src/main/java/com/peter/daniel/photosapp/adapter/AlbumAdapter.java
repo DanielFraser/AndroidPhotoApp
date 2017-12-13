@@ -60,8 +60,6 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
     private Context mContext;
     private ArrayList<String> mDataset;
 
-    //protected SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
-
     public AlbumAdapter(Context context, ArrayList<String> objects) {
         this.mContext = context;
         this.mDataset = objects;
@@ -81,7 +79,7 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         viewHolder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
             public void onOpen(SwipeLayout layout) {
-                //YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
+
             }
         });
         viewHolder.swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
@@ -105,19 +103,17 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
         viewHolder.buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(view.getContext(), "edited " + viewHolder.textViewData.getText().toString() + "!", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Title");
 
-                // Set up the input
                 final EditText input = new EditText(view.getContext());
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setText(viewHolder.textViewData.getText().toString());
+
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
                 final View v = view;
 
-                // Set up the buttons
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -150,7 +146,6 @@ public class AlbumAdapter extends RecyclerSwipeAdapter<AlbumAdapter.SimpleViewHo
                 mContext.startActivity(viewAlbum);
             }
         });
-        //viewHolder.textViewPos.setText((position + 1) + ".");
         viewHolder.textViewData.setText(item);
         mItemManger.bind(viewHolder.itemView, position);
     }

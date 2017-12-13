@@ -55,7 +55,7 @@ public class SearchAdapter extends BaseSwipeAdapter {
         View gridView;
 
         // get layout from mobile.xml
-        gridView = inflater.inflate(R.layout.photoitem, null);
+        gridView = inflater.inflate(R.layout.photoitem2, null);
 
 
         return gridView;
@@ -66,7 +66,7 @@ public class SearchAdapter extends BaseSwipeAdapter {
     public void fillValues(int position, View convertView) {
         // set value into textview
         Log.d("poss2", "onClick2: " + position);
-        ImageView iv = convertView.findViewById(R.id.imageView);
+        ImageView iv = convertView.findViewById(R.id.imageView22);
         iv.setTag(Integer.valueOf(position));
         String imageFileName = User.temp.get(position).getLocation();
         File imgFile = new File(imageFileName);
@@ -86,16 +86,14 @@ public class SearchAdapter extends BaseSwipeAdapter {
 
         //Log.d("test", photos.get(position).getLocation());
         SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeLayout.findViewById(R.id.bottom_wrapper1));
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeLayout.findViewById(R.id.bottom_wrapper2));
 
-        ImageView iv2 = convertView.findViewById(R.id.view);
+        ImageView iv2 = convertView.findViewById(R.id.view2);
         iv2.setTag(Integer.valueOf(position));
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent viewAlbum = new Intent(mContext, SlideShow.class);
-                viewAlbum.putExtra("pos",(Integer)(view.findViewById(R.id.view)).getTag());
+                viewAlbum.putExtra("pos",(Integer)(view.findViewById(R.id.view2)).getTag());
                 mContext.startActivity(viewAlbum);
             }
         });
