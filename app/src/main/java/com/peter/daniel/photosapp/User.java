@@ -118,7 +118,7 @@ public class User implements Serializable
 		}
 		catch(FileNotFoundException e)
 		{
-			Toast.makeText(con, "No files?", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(con, "No data found on device", Toast.LENGTH_SHORT).show();
 		}
 		catch(Exception e)
 		{
