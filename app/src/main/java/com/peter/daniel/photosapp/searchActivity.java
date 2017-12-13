@@ -50,7 +50,7 @@ public class searchActivity extends AppCompatActivity {
                String person_value = personInput.getText().toString();
                String location_value = locationInput.getText().toString();
 
-               User.temp = User.search(person_value,location_value);
+               User.temp = User.search(location_value,person_value);
 
                Intent myIntent = new Intent(searchActivity.this, searchResultActivity.class);
 //               myIntent.putExtra("photo_results", temp);
