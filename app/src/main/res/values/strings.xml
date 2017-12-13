@@ -3,8 +3,17 @@
     <string name="title_activity_view_album">Album</string>
     <string name="title_activity_search">Search</string>
     <string name="search_hint">Search Photos</string>
-    <string name="help_header">About</string>
-    <string name="help_desc">Desc goes here</string>
-    <string name="tag"> </string>
+    <string name="help_header">About/Help</string>
+    <string name="album_help_desc">Welcome to our Photos App! For this application we used a 3rd party adapter that allows for a user to swipe
+    left or right on a list object to see possible further actions. On your album list page(main page). Once you create an album by clicking the + icon in the menu, you will see it in your list
+    From there on a Android VD to view the album swipe towards the right(click on list item and drag right on the computer) you will see a Yellow button, click on button to view. To Delete or rename
+    your album swipe to the left(click on list on item and drag left) and you will see a red button for delete and an orange button for renaming the selected Album.
+    To go back to view the list item name just swipe the opposite direction you swiped before. \n \n In the view album screen you will see a floating action button with a plus that is used to add a photo to your album. When adding a photo we highly recommend selecting photos
+    from the Gallery Folder(one with black background), selecting from other folders like Camera and Recent as well as other have been known to cause crashes when running on API 23. Once you successfully
+    add a photo you should see it on your screen to add/edit caption and view photo you will need to do the equivalent of swiping to the right to see a view button(hold down on photo and swipe/click drag towards the right)
+        which will bring you to photoview/slideshow. Swiping to the left(hold down and swipe/click drag towards the left) you should see two buttons a blue one for moving photos to other albums and
+    a trash can icon to delete photo. The photo icon swipe action and display also acts the same when veiwing search results. \n \n </string>
     <string name="search_desc">Here you may search for photos by either Person and/or Location tag</string>
+
+    <string name="tag"> </string>
 </resources>

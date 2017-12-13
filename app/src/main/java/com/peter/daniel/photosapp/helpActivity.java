@@ -28,6 +28,8 @@ public class helpActivity extends AppCompatActivity {
         upArrow.setColorFilter(getResources().getColor(R.color.colorTextWhite), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
+        setTitle("Help");
+
         ab.setDisplayHomeAsUpEnabled(true);
     }
 }
