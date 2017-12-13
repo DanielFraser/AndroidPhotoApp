@@ -17,4 +17,5 @@
     <color name="green_press">#004000</color>
     <color name="blue">#00bfff</color>
     <color name="blue_press">#004c66</color>
+    <color name="grey">#BEBEBE</color>
 </resources>

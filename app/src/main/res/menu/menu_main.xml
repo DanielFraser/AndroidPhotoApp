@@ -10,7 +10,7 @@
         android:orderInCategory="300"
         android:title="Search"
         android:icon="@drawable/ic_help_outline_black_24dp"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_search"

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
 
-    private ArrayList<String> mDataSet;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -56,13 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Adapter:
         //String[] adapterData = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
-        mDataSet = User.getAlbumNames();
+        ArrayList<String> mDataSet = User.getAlbumNames();
         mAdapter = new AlbumAdapter(this, mDataSet);
         ((AlbumAdapter) mAdapter).setMode(Attributes.Mode.Single);
         recyclerView.setAdapter(mAdapter);
 
         /* Listeners */
         recyclerView.setOnScrollListener(onScrollListener);
+        startPopup();
     }
 
     /**
@@ -145,18 +145,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void displayPopupWindow() {
-        PopupWindow popup = new PopupWindow(this);
-        View layout = getLayoutInflater().inflate(R.layout.help_popup, null);
-        popup.setContentView(layout);
-        popup.setOutsideTouchable(true);
-        popup.setFocusable(true);
-        popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
         User.saveAll();
+    }
+
+    private void startPopup() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Useful message")
+                .setMessage("If ever confused or lost, please visit the help page(question mark)")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                }).show();
     }
 }
