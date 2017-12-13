@@ -7,7 +7,9 @@
     <string name="album_help_desc">For our project, we used a 3rd party app that allows us to hide buttons underneath both lists and gridview items.\n\n
     - slide right to view items more in depth\n
         - slide left for editing or deleting the current item\n
-    - slideshow you slide either left or right to move</string>
+    - slideshow you slide either left or right to move \n \n
+    A final note when adding a photo from your Android VD/Phone only add a photo through Gallery other folders such as Recent, Images, and Photos
+    may not work with our photo application.</string>
     <string name="search_desc">Here you may search for photos by either Person and/or Location tag</string>
 
     <string name="tag"> </string>
