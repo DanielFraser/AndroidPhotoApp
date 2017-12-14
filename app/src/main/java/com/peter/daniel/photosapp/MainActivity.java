@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar myToolbar;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
+    private static int display = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startPopup() {
-        new AlertDialog.Builder(MainActivity.this)
+        if(display != 1)
+            new AlertDialog.Builder(MainActivity.this)
                 .setTitle("Useful message")
                 .setMessage("If ever confused or lost, please visit the help page(question mark)")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -161,5 +163,6 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 }).show();
+        display = 1;
     }
 }

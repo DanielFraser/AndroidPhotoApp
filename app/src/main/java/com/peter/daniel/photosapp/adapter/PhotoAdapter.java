@@ -82,10 +82,10 @@ public class PhotoAdapter extends BaseSwipeAdapter {
             final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
             int nh = (int) ( selectedImage.getHeight() * (512.0 / selectedImage.getWidth()) );
             Bitmap scaled = Bitmap.createScaledBitmap(selectedImage, 512, nh, true);
-            scaled.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+            /*scaled.compress(Bitmap.CompressFormat.JPEG, 0, stream);
             byte[] byteArray = stream.toByteArray();
-            Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
-            iv.setImageBitmap(compressedBitmap);
+            Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);*/
+            iv.setImageBitmap(scaled);
         }
 
         //Log.d("test", photos.get(position).getLocation());
